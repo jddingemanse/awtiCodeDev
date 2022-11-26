@@ -1,10 +1,10 @@
 # awtiCode
-Code developed by and for Arba Minch Water Technology Institute (AWTI) staff. The raw code can be found under the folder /code, some corresponding data can be found under the folder /data.
+Code developed by and for Arba Minch Water Technology Institute (AWTI) staff. The raw code can be found under the folder [/code/](code/), some corresponding data can be found under the folder [/data/](data/).
 
 ## About awtiCode
 Development of code under this repository is an initiative to let some AWTI staff gain experience in coding by (trying to) write relevant code for their colleagues.
 
-Some of the code is organized as functions under a package, that you can install in your preferred Python coding environment.
+Some of the code is organized as functions under a package, that you can install in your preferred Python coding environment. The code for the package is hosted under the repository [jddingemanse/awtiCode](www.github.com/jddingemanse/awtiCode).
 
 ## Installation of awtiCode as package
 First, make sure git is installed. In anaconda prompt:
