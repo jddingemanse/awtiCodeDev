@@ -28,7 +28,7 @@ ax.set_xlabel('Month')
 ax.set_ylabel('Total Monthly Rainfall (mm)')
 ax.set_title('Gircha Projected Rainfall for CCLM4 model')
 fig.legend(loc='upper right')
-fig.savefig('output/Projected_Gircha_Monthly1_line.png', dpi=120)
+fig.savefig('output/Projected_Gircha_Monthly1_curved.png', dpi=120)
 plt.show()
 
 #smooth line
