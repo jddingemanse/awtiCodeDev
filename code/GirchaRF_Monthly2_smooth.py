@@ -4,6 +4,12 @@ Created on Tue Nov  8 10:42:08 2022
 
 @author: Nebiyu
 """
+# One of the reviewers of my submitted paper commented me to change the curved line to smooth. 
+#This code is created to plot the smooth line instead of curved line. 
+#You may also face such problems. In case this script will hopefully help you!
+
+#Here both the curved line and smooth lines are plotted to see their difference.
+
 
 import matplotlib.pyplot as plt
 from scipy.interpolate import make_interp_spline
@@ -12,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 Smooth=pd.read_excel('output/GirchaSmooth.xlsx', sheet_name='Sheet1')
-#Line plot
+#Curved line 
 fig,ax=plt.subplots()
 ax.plot(Smooth.Date,Smooth.Hist, c='k',ls='--',label='Hist')
 ax.plot(Smooth.Date,Smooth.Rain45,c='k',ls='--',label='RCP4.5')
