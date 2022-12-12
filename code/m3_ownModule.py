@@ -22,3 +22,6 @@ def nameSelect():
     names = pd.read_csv('data/ParticipantNames.csv')
     name = random.choice(names.Name)
     print('For this task, '+name.upper()+' is randomly selected!')
+
+def testFunction():
+    print('test')
