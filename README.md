@@ -6,7 +6,14 @@ Development of code under this repository is an initiative to let some AWTI staf
 
 Some of the code is organized as functions under a package, that you can install in your preferred Python coding environment. The code for the package is hosted under the repository [jddingemanse/awtiCode](http://www.github.com/jddingemanse/awtiCode).
 
+## Participating in awtiCode
+Your feedback, input, questions and remarks are most welcome! You can check out the [discussions](https://github.com/jddingemanse/awtiCodeDev/discussions) - add your knowledge to an existing one, or open a new one. If you find something that is a problem or should truly be added or changed, you can describe that in a discussion, or even raise an [issue](https://github.com/jddingemanse/awtiCodeDev/issues).
+
+If you want to join in coding (become a collaborator of awtiCodeDev), please contact Jan Dirk Dingemanse.
+
 ## Installation of awtiCode as package
+If you want to install awtiCode as a package, follow the below steps.
+
 First, make sure git is installed. In anaconda prompt:
 ```
 conda install git
