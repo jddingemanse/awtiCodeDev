@@ -24,7 +24,7 @@ Step-2:
         And then: We can easly solve the above equation as follows
         Anyone can change and add to make 3x3, 4x4, or above matrix
         And Anyone can follow to solve the matrix
-Here are two examples 2X2 matrix and 3x3 matrix to be solved easly.
+Here are thre examples 2X2 matrix, 3x3 and 4x4 matrix to be solved easly.
 '''
 
 # Example 1: The linier equation of two variables X & Y:
@@ -36,7 +36,7 @@ b = np.array([-42,2])         ## Martix of righthand side of equat.
 z = np.linalg.solve(A,b)      ## Solving procedure
 print(z)                      ## Answer or solutions
 
-# Example 1: The linier equation of three variables X, Y & Z:
+# Example 2: The linier equation of three variables X, Y & Z:
     # 3x + y  - 2z = 6
     # 1x + 2y + 1z = 1
     # 2x - y - z   = 1
@@ -46,7 +46,7 @@ c = np.array([6,1,1])
 y = np.linalg.solve(M,c)
 print(y)
 
-# Example 1: The linier equation of four variables h0, h1, h2, & h3:
+# Example 3: The linier equation of four variables h0, h1, h2, & h3:
     # -4*h0 + 1*h1  + 1*h2 + 0*h3 = -27
     # +1*h0 - 4*h1 + 0*h2 + 1*h3 = -10
     # +1*h0 + 0*h1 - 4*h2 + 1*h3 = -30
