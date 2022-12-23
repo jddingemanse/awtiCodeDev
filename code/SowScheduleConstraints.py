@@ -15,8 +15,7 @@ cropcycle = dict(zip(crops,[3,4,4,4,5,12,4,4]))
 waterconstraint = np.array([321,317,271,298,322,582,262,352])
 profit = [74750,38711,93600,192805,90060,135919,62483,123744]
 
-cropOffSeason = {'x4':[9],
-                 'x8':[9]}
+cropOffSeason = {'x4':[3,4,9]}
 
 ######################### FROM HERE: DO NOT CHANGE ############################
 
