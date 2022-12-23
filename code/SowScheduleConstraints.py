@@ -7,8 +7,7 @@ import numpy as np
 
 ############################## SETTINGS ########################################
 
-no_yrs = 1
-available_water_per_month = [1705540]*no_yrs*12
+available_water_per_month = [1705540]*12
 available_land = 1176
 
 crops = ['x1','x2','x3','x4','x5','x6','x7','x8']
@@ -16,7 +15,8 @@ cropcycle = dict(zip(crops,[3,4,4,4,5,12,4,4]))
 waterconstraint = np.array([321,317,271,298,322,582,262,352])
 profit = [74750,38711,93600,192805,90060,135919,62483,123744]
 
-cropOffSeason = {'x4':[8,9,10,11]}
+cropOffSeason = {'x4':[9],
+                 'x8':[9]}
 
 ######################### FROM HERE: DO NOT CHANGE ############################
 
@@ -24,7 +24,7 @@ cropOffSeason = {'x4':[8,9,10,11]}
 model = cp_model.CpModel()
 
 # Create the variables
-no_months = no_yrs*12
+no_months = 12
 
 var_upper_bound = 100000
 months = str(list(range(1,no_months+1)))[1:-1].split(', ')
@@ -63,10 +63,7 @@ for month in months:
 if len(cropOffSeason)>0:
     for crop in cropOffSeason.keys():
         yrmonths = np.array(cropOffSeason[crop])
-        yrmonthsnew = np.array([])
-        for i in range(0,no_yrs):
-            yrmonthsnew = np.concatenate((yrmonthsnew,yrmonths+12*i))
-        monthsOff = yrmonthsnew.astype(int)
+        monthsOff = yrmonths.astype(int)
         for month in monthsOff:
             variable = cropsDf.variables[(cropsDf.monthInt==month)&(cropsDf.crop==crop)][0]
             model.Add(variable==0)
@@ -80,12 +77,11 @@ for cropvar,sowvar in sowvars.items():          # Take all cropvars and sowvars 
     month = cropvar[2:]                         # Take month from cropvar
     monthno = int(month[1:])                    # Take month as integer
     for i in range(monthno+1,monthno+cycle):    # Go over all months succeeding the cropvar month 
-        print(i)
         if i > no_months:                             # Break if outside of 12 month range
             i -= 12
         varname = crop+'m'+str(i)               # Create cropvar names succeeding the cropvar 
-        model.Add(cropvars[cropvar]==cropvars[varname]).OnlyEnforceIf(sowvar)   # Succeeding months must be 
-        print(varname)                                                                      # equal to cropvar month when
+        model.Add(cropvars[cropvar]==cropvars[varname]).OnlyEnforceIf(sowvar)   # Succeeding months must be                                                                     
+                                                                                # equal to cropvar month when
                                                                                 # sowvar of original month 
                                                                                 # is true.
         model.Add(sowvars[varname]==0).OnlyEnforceIf(sowvar)    # Succeeding sowvars must be False because 
@@ -109,22 +105,12 @@ for cropvar, sowvar in sowvars.items():         # Go over all cropvars
                 # Add OnlyEnforceIf(sowvars[preceding_cropvar].Not()) to constraint string
     exec(constraint)    # Execute constraint string
 
-
 #### A month cannot be zero, if the corresponding sowvariable is one
 for cropvar, sowvar in sowvars.items():
-    model.Add(cropvars[cropvar]>0).OnlyEnforceIf(sowvar)  
-    
-#### You cannot sow when cropcycle does not fit into the remaining year
-for cropvar, sowvar in sowvars.items():         # Go over all cropvars
-    crop = cropvar[:2]                          # Take cropname
-    cycle = cropcycle[crop]                     # Take cycle that matches cropname
-    month = cropvar[2:]                         # Take month from cropvar
-    monthno = int(month[1:])                    # Take month as integer
-
-    if monthno + cycle - 1 > no_months:
-        model.Add(sowvar==0)
+    model.Add(cropvars[cropvar]>0).OnlyEnforceIf(sowvar)
 
 # solve it
+print('All constraints are added to the model, now the solving starts. This might take a while...')
 # to take crop cycles into account (per cycle, only one yield), //cropcycle
 profitweight = cropsDf.profit//cropsDf.cropcycle
 model.Maximize(sum(cropsDf.variables*profitweight))
@@ -132,8 +118,6 @@ solver = cp_model.CpSolver()
 status = solver.Solve(model)
 
 for name,variable in zip(cropsDf.index,cropsDf.variables):
-    print(name+': '+str(solver.Value(variable))+'\t\t'+sowvars[name].Name()+': '
-          +str(solver.Value(sowvars[variable.Name()])))
     cropsDf.loc[name,'hectare'] = solver.Value(variable)
     cropsDf.loc[name,'result'] = str((solver.Value(sowvars[name]),solver.Value(variable)))
 
@@ -143,4 +127,3 @@ print(cropsResult)
 import seaborn as sn
 %matplotlib
 sn.heatmap(cropsDf.pivot(index='monthInt',columns='crop',values='hectare'),cmap='coolwarm')
-
