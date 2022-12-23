@@ -7,16 +7,16 @@ import numpy as np
 
 ############################## SETTINGS ########################################
 
-no_yrs = 2
+no_yrs = 1
 available_water_per_month = [1705540]*no_yrs*12
-available_land = 1176000
+available_land = 1176
 
 crops = ['x1','x2','x3','x4','x5','x6','x7','x8']
 cropcycle = dict(zip(crops,[3,4,4,4,5,12,4,4]))
 waterconstraint = np.array([321,317,271,298,322,582,262,352])
 profit = [74750,38711,93600,192805,90060,135919,62483,123744]
 
-cropOffSeason = {'x4':[3,4,5]}
+cropOffSeason = {'x4':[8,9,10,11]}
 
 ######################### FROM HERE: DO NOT CHANGE ############################
 
@@ -80,11 +80,12 @@ for cropvar,sowvar in sowvars.items():          # Take all cropvars and sowvars 
     month = cropvar[2:]                         # Take month from cropvar
     monthno = int(month[1:])                    # Take month as integer
     for i in range(monthno+1,monthno+cycle):    # Go over all months succeeding the cropvar month 
-        if i == no_months+1:                             # Break if outside of 12 month range
-            break
+        print(i)
+        if i > no_months:                             # Break if outside of 12 month range
+            i -= 12
         varname = crop+'m'+str(i)               # Create cropvar names succeeding the cropvar 
         model.Add(cropvars[cropvar]==cropvars[varname]).OnlyEnforceIf(sowvar)   # Succeeding months must be 
-                                                                                # equal to cropvar month when
+        print(varname)                                                                      # equal to cropvar month when
                                                                                 # sowvar of original month 
                                                                                 # is true.
         model.Add(sowvars[varname]==0).OnlyEnforceIf(sowvar)    # Succeeding sowvars must be False because 
@@ -102,7 +103,7 @@ for cropvar, sowvar in sowvars.items():         # Go over all cropvars
 
     for i in list(range(monthno-cycle+1, monthno+1))[::-1]:   # For the length of cropcycle, go over all preceding cropvars (limited by size of year) 
         if i <= 0: 
-            break
+            i += 12
         varname = crop + 'm' + str(i)
         constraint = constraint + f'.OnlyEnforceIf(sowvars[\'{varname}\'].Not())'   
                 # Add OnlyEnforceIf(sowvars[preceding_cropvar].Not()) to constraint string
@@ -122,7 +123,7 @@ for cropvar, sowvar in sowvars.items():         # Go over all cropvars
 
     if monthno + cycle - 1 > no_months:
         model.Add(sowvar==0)
-    
+
 # solve it
 # to take crop cycles into account (per cycle, only one yield), //cropcycle
 profitweight = cropsDf.profit//cropsDf.cropcycle
