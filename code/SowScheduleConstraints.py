@@ -17,6 +17,8 @@ profit = [74750,38711,93600,192805,90060,135919,62483,123744]
 
 cropOffSeason = {'x4':[3,4,9]}
 
+maxTime = 10 # Time in seconds maximum for the solver. Increase this one if you want to give the solver more time to find the best solution.
+
 ######################### FROM HERE: DO NOT CHANGE ############################
 
 # from ortools.sat.python import cp_model
@@ -109,11 +111,13 @@ for cropvar, sowvar in sowvars.items():
     model.Add(cropvars[cropvar]>0).OnlyEnforceIf(sowvar)
 
 # solve it
-print('All constraints are added to the model, now the solving starts. This might take a while...')
+print('All constraints are added to the model, now the solving starts. The solver will show the best option it found in '+str(maxTime)+' seconds.\nIf you want to give the solver more or less time, you can change the value of maxTime under settings.')
 # to take crop cycles into account (per cycle, only one yield), //cropcycle
 profitweight = cropsDf.profit//cropsDf.cropcycle
 model.Maximize(sum(cropsDf.variables*profitweight))
 solver = cp_model.CpSolver()
+solver.parameters.max_time_in_seconds = maxTime
+
 status = solver.Solve(model)
 
 for name,variable in zip(cropsDf.index,cropsDf.variables):
@@ -121,8 +125,6 @@ for name,variable in zip(cropsDf.index,cropsDf.variables):
     cropsDf.loc[name,'result'] = str((solver.Value(sowvars[name]),solver.Value(variable)))
 
 cropsResult = cropsDf.pivot(index='monthInt',columns='crop',values='result')
-print(cropsResult)
-
-import seaborn as sn
-%matplotlib
-sn.heatmap(cropsDf.pivot(index='monthInt',columns='crop',values='hectare'),cmap='coolwarm')
+objVal = solver.ObjectiveValue()/1000000
+print('\nTotal profit: '+str(int(objVal))+' million.')
+print('Monthly per crop: (sowing,hectare), with sowing 0 (no) or 1 (yes).\n',cropsResult)
