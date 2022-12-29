@@ -53,7 +53,7 @@ cropsDf['waterconstraint'] = cropsDf.crop.replace(crops,waterconstraint)
 cropsDf['profit'] = cropsDf.crop.replace(crops,profit)
 cropsDf['cropcycle'] = cropsDf.crop.replace(crops,cropcycle.values())
 cropsDf['monthInt'] = cropsDf.month.str.slice(1).astype(int)
-cropsDf['yrsNoProfit'] = cropsDf.crop.replace(crops,yrs_no_profit)
+cropsDf['yrsNoProfit'] = cropsDf.crop.replace(crops,yrsToProfit)
 
 # Create water constraints
 for i, month in enumerate(months):
@@ -121,7 +121,7 @@ for cropvar, sowvar in sowvars.items():
 # solve it
 print('All constraints are added to the model, now the solving starts. The solver will show the best option it found in '+str(maxTime)+' seconds.\nIf you want to give the solver more or less time, you can change the value of maxTime under settings.')
 # to take crop cycles into account (per cycle, only one yield), //cropcycle
-profitweight = cropsDf.profit*(no_Yrs-cropsDf.yrsNoProfit)//cropsDf.cropcycle
+profitweight = cropsDf.profit*(noYrs-cropsDf.yrsNoProfit)//cropsDf.cropcycle
 model.Maximize(sum(cropsDf.variables*profitweight))
 solver = cp_model.CpSolver()
 solver.parameters.max_time_in_seconds = maxTime
