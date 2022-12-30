@@ -1,5 +1,5 @@
 # awtiCode
-Code developed by and for Arba Minch Water Technology Institute (AWTI) staff. The raw code can be found under the folder [/code/](code/), some corresponding data can be found under the folder [/data/](data/).
+Code developed by and for Arba Minch Water Technology Institute (AWTI) staff. The raw code can be found under the folder [/code/](code/), some corresponding data can be found under the folder [/data/](data/). Some of the code is shown as examples (or developed to be used as classroom materials) through Jupyter Notebooks. Any such notebooks you can find under the folder [/notebooks/](notebooks/).
 
 ## About awtiCode
 Development of code under this repository is an initiative to let some AWTI staff gain experience in coding by (trying to) write relevant code for their colleagues.
