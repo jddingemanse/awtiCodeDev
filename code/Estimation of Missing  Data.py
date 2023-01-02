@@ -87,10 +87,10 @@ DCM=18   # DCM The distance b/n chano and mirab(it is randon number not actual)
 DCS=20   # DCS The distance b/n chano and shara(it is randon number not actual)
 
 # a code to calculate missing data via inverse distance method
-Parb=(Data.Mirab.replace(np.nan,0)/(DAM)**2+Data.Chano.replace(np.nan,0)/(DAC)**2+Data.Shara.replace(np.nan,0)/(DAS)**2)/(1/DAM+1/DAC+1/DAS)
-Pmirab=( Data.Arbaminch.replace(np.nan,0)/(DAM)**2+Data.Chano.replace(np.nan,0)/(DCM)**2+Data.Shara.replace(np.nan,0)/(DMS)**2)/(1/DAM+1/DCM+1/DMS)
-PCHANO=( Data.Arbaminch.replace(np.nan,0)/(DAC)**2+Data.Mirab.replace(np.nan,0)/(DCM)**2+Data.Shara.replace(np.nan,0)/(DCS)**2)/(1/DAC+1/DCM+1/DCS)
-PSHARA=(Data.Arbaminch.replace(np.nan,0)/(DAS)**2+Data.Mirab.replace(np.nan,0)/(DMS)**2+Data.Chano.replace(np.nan,0)/(DCS)**2)/(1/DAS+1/DMS+1/DCS)
+Parb=(Data.Mirab.replace(np.nan,0)/(DAM**2)+Data.Chano.replace(np.nan,0)/(DAC**2)+Data.Shara.replace(np.nan,0)/(DAS**2))/(1/(DAM**2)+1/(DAC**2)+1/(DAS**2))
+Pmirab=( Data.Arbaminch.replace(np.nan,0)/(DAM**2)+Data.Chano.replace(np.nan,0)/(DCM**2)+Data.Shara.replace(np.nan,0)/(DMS**2))/(1/(DAM**2)+1/(DCM**2)+1/(DMS**2))
+PCHANO=( Data.Arbaminch.replace(np.nan,0)/(DAC**2)+Data.Mirab.replace(np.nan,0)/(DCM**2)+Data.Shara.replace(np.nan,0)/(DCS**2))/(1/(DAC**2)+1/(DCM**2)+1/(DCS**2))
+PSHARA=(Data.Arbaminch.replace(np.nan,0)/(DAS**2)+Data.Mirab.replace(np.nan,0)/(DMS**2)+Data.Chano.replace(np.nan,0)/(DCS**2))/(1/(DAS**2)+1/(DMS**2)+1/(DCS**2))
 
 # a code to fill missing data via inverse disatnce method from the above calculated formula
 
