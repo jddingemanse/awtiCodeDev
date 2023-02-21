@@ -7,6 +7,31 @@ Created on Tue feb 21 09:31:51 2023
 
 """
 
+#This is a code to generate a base map(Global and to the area of interest) so that we can visualize our data(i.e Numerical forecast product, soil data and etc.... on a map).
+
+#First, create a new environment in anaconda prompt by typing           
+
+
+#conda create --name basemap
+
+#then  type 
+
+#conda activate basemap then 
+
+#install the  required package  in a new environment  type
+
+#conda install -c conda-forge basemap
+
+#conda install -c conda-forge jupyter
+
+
+#open jupyter notebook
+
+#import the attached script in your notebook
+
+#pls, let me know if there is a challenge...
+
+
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 
