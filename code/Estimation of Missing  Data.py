@@ -45,7 +45,7 @@ NA=Data['Arbaminch'].mean()  #the normal annual rain fall of arbaminch
 NM=Data['Mirab'].mean()      #the normal annual rain fall of Mirab
 NC=Data['Chano'].mean()      #the normal annual rain fall of Chano
 NS=Data['Shara'].mean()      #the normal annual rain fall of Shara
-NX=np.mean([NA,NM,NC,NS])    #the normal annual rain fall of all
+#NX=np.mean([NA,NM,NC,NS])    #the normal annual rain fall of all
 
 
 #code to calculate the normal ratio of each station, (PA=precipitation of arbaminch)
