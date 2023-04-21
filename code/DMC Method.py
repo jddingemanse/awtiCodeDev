@@ -32,7 +32,7 @@ ax.set_title('Cumulative Mass Curve')
 #CB=changeBefor=CB=X1/Y1
 #changesumA= X1=DMC.loc[11]['sumA']-0
 #changesumGroup=Y1=DMC.loc[11]['sumGroup']-0
-#CB=X1/Y1
+#CB=Y1/X1
 
 # X1=DMC.loc[11]['sumA']-0
 # Y1=DMC.loc[11]['sumGroup']-0
@@ -44,7 +44,7 @@ CB=Y1/X1
 #CA=changeAfter=CA=X2/Y2
 #changeCumA=X2=DMC.loc[19]['sumA']-DMC.loc[11]['CumpA']
 #changeCumulativeGuroup=Y2=DMC.loc[19]['sumGroup']-DMC.loc[11]['sumGroup']
-#CA=X2/Y2
+#CA=Y2/X2
 # DMC.loc[19]['sumA']
 # DMC.loc[19]['sumGroup']
 
